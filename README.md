@@ -6,19 +6,19 @@ Toast view using swift.
 
 ### Usage
 
-1. single toast view
+1. Single toast view
 
           self.view.makeToast(message: msg)
           
-2. toast with title
+2. Toast with title
 
           self.view.makeToast(message: msg, duration: duration, position: pos, title: subject)
           
-3. toast with image, title...
+3. Toast with image, title...
 
           self.view.makeToast(message: msg, duration: duration, position: pos, title: subject, image: image)
 
-4. show and hide activity
+4. Show and hide activity
 
           self.view.makeToastActivity()
           self.view.hideToastActivity()
@@ -26,8 +26,8 @@ Toast view using swift.
           
 ### Screenshots
 
-![First Screenshot](https://raw.github.com/Rannie/Toast-Swift/Screenshots/sinple.PNG)
-![Second Screenshot](https://raw.github.com/Rannie/Toast-Swift/Screenshots/title.PNG)
+![First Screenshot](https://raw.github.com/Rannie/Toast-Swift/Screenshots/sinple.png)
+![Second Screenshot](https://raw.github.com/Rannie/Toast-Swift/Screenshots/title.png)
 <br />
-![Third Screenshot](https://raw.github.com/Rannie/Toast-Swift/Screenshots/image.PNG)
-![Fourth Screenshot](https://raw.github.com/Rannie/Toast-Swift/Screenshots/activity.PNG)
+![Third Screenshot](https://raw.github.com/Rannie/Toast-Swift/Screenshots/image.png)
+![Fourth Screenshot](https://raw.github.com/Rannie/Toast-Swift/Screenshots/activity.png)
