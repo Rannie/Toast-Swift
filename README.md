@@ -26,7 +26,7 @@ Toast view using swift.
           
 ### Screenshots
 
-![First Screenshot](https://raw.github.com/Rannie/Toast-Swift/master/Screenshots/sinple.png)
+![First Screenshot](https://raw.github.com/Rannie/Toast-Swift/master/Screenshots/single.png)
 ![Second Screenshot](https://raw.github.com/Rannie/Toast-Swift/master/Screenshots/title.png)
 <br />
 ![Third Screenshot](https://raw.github.com/Rannie/Toast-Swift/master/Screenshots/image.png)
