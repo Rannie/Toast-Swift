@@ -33,7 +33,7 @@ let HRToastActivityHeight :  CGFloat  = 100.0
 let HRToastActivityPositionDefault    = "center"
 
 // image size
-let HRToastImageViewWidth :  Float  = 80.0
+let HRToastImageViewWidth :  CGFloat  = 80.0
 let HRToastImageViewHeight:  CGFloat  = 80.0
 
 // label setting
