@@ -125,7 +125,7 @@ extension UIView {
     
     func makeToastActivity(position pos: AnyObject) {
         var existingActivityView: UIView? = objc_getAssociatedObject(self, &HRToastActivityView) as? UIView
-        if (existingActivityView != nil) { return }
+        if existingActivityView != nil { return }
         
         var activityView = UIView(frame: CGRectMake(0, 0, HRToastActivityWidth, HRToastActivityHeight))
         activityView.center = self.centerPointForPosition(pos, toast: activityView)
@@ -162,7 +162,7 @@ extension UIView {
     
     func hideToastActivity() {
         var existingActivityView: UIView? = objc_getAssociatedObject(self, &HRToastActivityView) as? UIView
-        if !(existingActivityView != nil) { return }
+        if existingActivityView == nil { return }
         UIView.animateWithDuration(HRToastFadeDuration,
             delay: 0.0,
             options: UIViewAnimationOptions.CurveEaseOut,
@@ -222,7 +222,7 @@ extension UIView {
     }
     
     func viewForMessage(msg: String?, title: String?, image: UIImage?) -> UIView? {
-        if (msg == nil && title == nil && image == nil) { return nil }
+        if msg == nil && title == nil && image == nil { return nil }
         
         var msgLabel: UILabel?
         var titleLabel: UILabel?
@@ -240,14 +240,14 @@ extension UIView {
             wrapperView.layer.shadowOffset = HRToastShadowOffset
         }
         
-        if (image != nil) {
+        if image != nil {
             imageView = UIImageView(image: image)
             imageView!.contentMode = .ScaleAspectFit
             imageView!.frame = CGRectMake(HRToastHorizontalMargin, HRToastVerticalMargin, CGFloat(HRToastImageViewWidth), CGFloat(HRToastImageViewHeight))
         }
         
         var imageWidth: CGFloat, imageHeight: CGFloat, imageLeft: CGFloat
-        if (imageView != nil) {
+        if imageView != nil {
             imageWidth = imageView!.bounds.size.width
             imageHeight = imageView!.bounds.size.height
             imageLeft = HRToastHorizontalMargin
@@ -255,7 +255,7 @@ extension UIView {
             imageWidth  = 0.0; imageHeight = 0.0; imageLeft   = 0.0
         }
         
-        if (title != nil) {
+        if title != nil {
             titleLabel = UILabel()
             titleLabel!.numberOfLines = HRToastMaxTitleLines
             titleLabel!.font = UIFont.boldSystemFontOfSize(HRToastFontSize)
@@ -272,7 +272,7 @@ extension UIView {
             titleLabel!.frame = CGRectMake(0.0, 0.0, maxSizeTitle.width, expectedHeight)
         }
         
-        if (msg != nil) {
+        if msg != nil {
             msgLabel = UILabel();
             msgLabel!.numberOfLines = HRToastMaxMessageLines
             msgLabel!.font = UIFont.systemFontOfSize(HRToastFontSize)
@@ -289,7 +289,7 @@ extension UIView {
         }
         
         var titleWidth: CGFloat, titleHeight: CGFloat, titleTop: CGFloat, titleLeft: CGFloat
-        if (titleLabel != nil) {
+        if titleLabel != nil {
             titleWidth = titleLabel!.bounds.size.width
             titleHeight = titleLabel!.bounds.size.height
             titleTop = HRToastVerticalMargin
@@ -299,7 +299,7 @@ extension UIView {
         }
         
         var msgWidth: CGFloat, msgHeight: CGFloat, msgTop: CGFloat, msgLeft: CGFloat
-        if (msgLabel != nil) {
+        if msgLabel != nil {
             msgWidth = msgLabel!.bounds.size.width
             msgHeight = msgLabel!.bounds.size.height
             msgTop = titleTop + titleHeight + HRToastVerticalMargin
