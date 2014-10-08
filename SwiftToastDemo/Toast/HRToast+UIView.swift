@@ -8,16 +8,16 @@
 
 import UIKit
 
-/* 
- *  Infix overload method
- */
-@infix func /(lhs: CGFloat, rhs: Int) -> CGFloat {
+/*
+*  Infix overload method
+*/
+ func /(lhs: CGFloat, rhs: Int) -> CGFloat {
     return lhs / CGFloat(rhs)
 }
 
 /*
- *  Toast Config
- */
+*  Toast Config
+*/
 let HRToastDefaultDuration  =   3.0
 let HRToastFadeDuration     =   0.2
 let HRToastHorizontalMargin : CGFloat  =   10.0
@@ -51,12 +51,12 @@ let HRToastShadowOffset   : CGSize    = CGSizeMake(CGFloat(4.0), CGFloat(4.0))
 let HRToastOpacity        : CGFloat   = 0.8
 let HRToastCornerRadius   : CGFloat   = 10.0
 
-var HRToastActivityView: CConstPointer<UIView>    =   nil
-var HRToastTimer: CConstPointer<NSTimer>          =   nil
+var HRToastActivityView: UnsafePointer<UIView>    =   nil
+var HRToastTimer: UnsafePointer<NSTimer>          =   nil
 
 /*
- *  Custom Config
- */
+*  Custom Config
+*/
 let HRToastHidesOnTap       =   true
 let HRToastDisplayShadow    =   true
 
@@ -65,8 +65,8 @@ let HRToastDisplayShadow    =   true
 extension UIView {
     
     /*
-     *  public methods 
-     */
+    *  public methods
+    */
     func makeToast(message msg: String) {
         self.makeToast(message: msg, duration: HRToastDefaultDuration, position: HRToastPositionDefault)
     }
@@ -116,7 +116,7 @@ extension UIView {
             completion: { (finished: Bool) in
                 var timer = NSTimer.scheduledTimerWithTimeInterval(duration, target: self, selector: Selector("toastTimerDidFinish:"), userInfo: toast, repeats: false)
                 objc_setAssociatedObject(toast, &HRToastTimer, timer, objc_AssociationPolicy(OBJC_ASSOCIATION_RETAIN_NONATOMIC))
-            })
+        })
     }
     
     func makeToastActivity() {
@@ -125,7 +125,7 @@ extension UIView {
     
     func makeToastActivity(position pos: AnyObject) {
         var existingActivityView: UIView? = objc_getAssociatedObject(self, &HRToastActivityView) as? UIView
-        if existingActivityView { return }
+        if existingActivityView != nil { return }
         
         var activityView = UIView(frame: CGRectMake(0, 0, HRToastActivityWidth, HRToastActivityHeight))
         activityView.center = self.centerPointForPosition(pos, toast: activityView)
@@ -135,10 +135,10 @@ extension UIView {
         activityView.layer.cornerRadius = HRToastCornerRadius
         
         if HRToastDisplayShadow {
-            activityView.layer.shadowColor = UIColor.blackColor().CGColor;
-            activityView.layer.shadowOpacity = HRToastShadowOpacity;
-            activityView.layer.shadowRadius = HRToastShadowRadius;
-            activityView.layer.shadowOffset = HRToastShadowOffset;
+            activityView.layer.shadowColor = UIColor.blackColor().CGColor
+            activityView.layer.shadowOpacity = Float(HRToastShadowOpacity)
+            activityView.layer.shadowRadius = HRToastShadowRadius
+            activityView.layer.shadowOffset = HRToastShadowOffset
         }
         
         var activityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: .WhiteLarge)
@@ -162,7 +162,7 @@ extension UIView {
     
     func hideToastActivity() {
         var existingActivityView: UIView? = objc_getAssociatedObject(self, &HRToastActivityView) as? UIView
-        if !existingActivityView { return }
+        if existingActivityView == nil { return }
         UIView.animateWithDuration(HRToastFadeDuration,
             delay: 0.0,
             options: UIViewAnimationOptions.CurveEaseOut,
@@ -172,12 +172,12 @@ extension UIView {
             completion: { (finished: Bool) in
                 existingActivityView!.removeFromSuperview()
                 objc_setAssociatedObject(self, &HRToastActivityView, nil, objc_AssociationPolicy(OBJC_ASSOCIATION_RETAIN_NONATOMIC))
-            })
+        })
     }
     
     /*
-     *  private methods (helper)
-     */
+    *  private methods (helper)
+    */
     func hideToast(#toast: UIView) {
         UIView.animateWithDuration(HRToastFadeDuration,
             delay: 0.0,
@@ -188,7 +188,7 @@ extension UIView {
             completion: { (isFinished: Bool) in
                 toast.removeFromSuperview()
                 objc_setAssociatedObject(self, &HRToastActivityView, nil, objc_AssociationPolicy(OBJC_ASSOCIATION_RETAIN_NONATOMIC))
-            })
+        })
     }
     
     func toastTimerDidFinish(timer: NSTimer) {
@@ -199,7 +199,7 @@ extension UIView {
         var timer = objc_getAssociatedObject(self, &HRToastTimer) as NSTimer
         timer.invalidate()
         
-        self.hideToast(toast: recognizer.view)
+        self.hideToast(toast: recognizer.view!)
     }
     
     func centerPointForPosition(position: AnyObject, toast: UIView) -> CGPoint {
@@ -222,7 +222,7 @@ extension UIView {
     }
     
     func viewForMessage(msg: String?, title: String?, image: UIImage?) -> UIView? {
-        if !msg && !title && !image { return nil }
+        if msg == nil && title == nil && image == nil { return nil }
         
         var msgLabel: UILabel?
         var titleLabel: UILabel?
@@ -235,19 +235,19 @@ extension UIView {
         
         if HRToastDisplayShadow {
             wrapperView.layer.shadowColor = UIColor.blackColor().CGColor
-            wrapperView.layer.shadowOpacity = HRToastShadowOpacity
+            wrapperView.layer.shadowOpacity = Float(HRToastShadowOpacity)
             wrapperView.layer.shadowRadius = HRToastShadowRadius
             wrapperView.layer.shadowOffset = HRToastShadowOffset
         }
         
-        if image {
+        if image != nil {
             imageView = UIImageView(image: image)
             imageView!.contentMode = .ScaleAspectFit
-            imageView!.frame = CGRectMake(HRToastHorizontalMargin, HRToastVerticalMargin, HRToastImageViewWidth, HRToastImageViewHeight)
+            imageView!.frame = CGRectMake(HRToastHorizontalMargin, HRToastVerticalMargin, CGFloat(HRToastImageViewWidth), CGFloat(HRToastImageViewHeight))
         }
         
         var imageWidth: CGFloat, imageHeight: CGFloat, imageLeft: CGFloat
-        if imageView {
+        if imageView != nil {
             imageWidth = imageView!.bounds.size.width
             imageHeight = imageView!.bounds.size.height
             imageLeft = HRToastHorizontalMargin
@@ -255,7 +255,7 @@ extension UIView {
             imageWidth  = 0.0; imageHeight = 0.0; imageLeft   = 0.0
         }
         
-        if title {
+        if title != nil {
             titleLabel = UILabel()
             titleLabel!.numberOfLines = HRToastMaxTitleLines
             titleLabel!.font = UIFont.boldSystemFontOfSize(HRToastFontSize)
@@ -272,7 +272,7 @@ extension UIView {
             titleLabel!.frame = CGRectMake(0.0, 0.0, maxSizeTitle.width, expectedHeight)
         }
         
-        if msg {
+        if msg != nil {
             msgLabel = UILabel();
             msgLabel!.numberOfLines = HRToastMaxMessageLines
             msgLabel!.font = UIFont.systemFontOfSize(HRToastFontSize)
@@ -289,7 +289,7 @@ extension UIView {
         }
         
         var titleWidth: CGFloat, titleHeight: CGFloat, titleTop: CGFloat, titleLeft: CGFloat
-        if titleLabel {
+        if titleLabel != nil {
             titleWidth = titleLabel!.bounds.size.width
             titleHeight = titleLabel!.bounds.size.height
             titleTop = HRToastVerticalMargin
@@ -299,7 +299,7 @@ extension UIView {
         }
         
         var msgWidth: CGFloat, msgHeight: CGFloat, msgTop: CGFloat, msgLeft: CGFloat
-        if msgLabel {
+        if msgLabel != nil {
             msgWidth = msgLabel!.bounds.size.width
             msgHeight = msgLabel!.bounds.size.height
             msgTop = titleTop + titleHeight + HRToastVerticalMargin
@@ -317,16 +317,16 @@ extension UIView {
         wrapperView.frame = CGRectMake(0.0, 0.0, wrapperWidth, wrapperHeight)
         
         // add subviews
-        if titleLabel {
+        if titleLabel != nil {
             titleLabel!.frame = CGRectMake(titleLeft, titleTop, titleWidth, titleHeight)
-            wrapperView.addSubview(titleLabel)
+            wrapperView.addSubview(titleLabel!)
         }
-        if msgLabel {
+        if msgLabel != nil {
             msgLabel!.frame = CGRectMake(msgLeft, msgTop, msgWidth, msgHeight)
-            wrapperView.addSubview(msgLabel)
+            wrapperView.addSubview(msgLabel!)
         }
-        if imageView {
-            wrapperView.addSubview(imageView)
+        if imageView != nil {
+            wrapperView.addSubview(imageView!)
         }
         
         return wrapperView
@@ -338,7 +338,7 @@ extension String {
     
     func stringHeightWithFontSize(fontSize: CGFloat,width: CGFloat) -> CGFloat {
         var font = UIFont.systemFontOfSize(fontSize)
-        var size = CGSizeMake(width, CGFLOAT_MAX)
+        var size = CGSizeMake(width, CGFloat.max)
         var paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.lineBreakMode = .ByWordWrapping;
         var attributes = [NSFontAttributeName:font,
@@ -350,4 +350,5 @@ extension String {
     }
     
 }
+
 
