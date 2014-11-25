@@ -22,6 +22,10 @@ Toast view using swift.
 
           self.view.makeToastActivity()
           self.view.hideToastActivity()
+
+5. Show activity with message
+
+        self.view.makeToastActivityWithMessage(message: msg)
           
           
 ### Screenshots
@@ -35,3 +39,7 @@ Type: image and activity
 <br />
 ![Third Screenshot](https://raw.github.com/Rannie/Toast-Swift/master/Screenshots/image.png)
 ![Fourth Screenshot](https://raw.github.com/Rannie/Toast-Swift/master/Screenshots/activity.png)
+<br />
+Type: activity with message
+<br />
+![Fifth Screenshot](https://raw.githubusercontent.com/ilkerdagli/Toast-Swift/master/Screenshots/activityWithMessage.png)

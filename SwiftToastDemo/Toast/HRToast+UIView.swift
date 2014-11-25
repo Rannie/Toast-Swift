@@ -122,8 +122,12 @@ extension UIView {
     func makeToastActivity() {
         self.makeToastActivity(position: HRToastActivityPositionDefault)
     }
+
+    func makeToastActivityWithMessage(message msg: String){
+        self.makeToastActivity(position: HRToastActivityPositionDefault, message: msg)
+    }
     
-    func makeToastActivity(position pos: AnyObject) {
+    func makeToastActivity(position pos: AnyObject, message msg: String = "") {
         var existingActivityView: UIView? = objc_getAssociatedObject(self, &HRToastActivityView) as? UIView
         if existingActivityView != nil { return }
         
@@ -146,6 +150,16 @@ extension UIView {
         activityView.addSubview(activityIndicatorView)
         activityIndicatorView.startAnimating()
         
+        if (!msg.isEmpty){
+            activityIndicatorView.frame.origin.y -= 10
+            var activityMessageLabel = UILabel(frame: CGRectMake(activityView.bounds.origin.x, (activityIndicatorView.frame.origin.y + activityIndicatorView.frame.size.height + 10), activityView.bounds.size.width, 20))
+            activityMessageLabel.textColor = UIColor.whiteColor()
+            activityMessageLabel.font = (countElements(msg)<=10) ? UIFont(name:activityMessageLabel.font.fontName, size: 16) : UIFont(name:activityMessageLabel.font.fontName, size: 13)
+            activityMessageLabel.textAlignment = .Center
+            activityMessageLabel.text = msg
+            activityView.addSubview(activityMessageLabel)
+        }
+
         self.addSubview(activityView)
         
         // associate activity view with self
