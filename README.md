@@ -43,3 +43,7 @@ Type: image and activity
 Type: activity with message
 <br />
 ![Fifth Screenshot](https://raw.githubusercontent.com/ilkerdagli/Toast-Swift/master/Screenshots/activityWithMessage.png)
+
+### LICENSE
+
+Toast-Swift is available under the MIT license. See the LICENSE file for more info.
