@@ -48,16 +48,16 @@ class ViewController: UIViewController {
     
     // handle events
     func handleSingleToastClicked(sender: UIButton) {
-        self.view.makeToast(message: sender.titleForState(.Normal))
+        self.view.makeToast(message: sender.titleForState(.Normal)!)
     }
     
     func handleTitleToastClicked(sender: UIButton) {
-        self.view.makeToast(message: sender.titleForState(.Normal), duration: 2, position: HRToastPositionTop, title: "<Title>")
+        self.view.makeToast(message: sender.titleForState(.Normal)!, duration: 2, position: HRToastPositionTop, title: "<Title>")
     }
     
     func handleImageToastClicked(sender: UIButton) {
         var image = UIImage(named: "swift-logo.png")
-        self.view.makeToast(message: sender.titleForState(.Normal), duration: 2, position: "center", title: "Image!", image: image)
+        self.view.makeToast(message: sender.titleForState(.Normal)!, duration: 2, position: "center", title: "Image!", image: image!)
     }
     
     func showActivity() {

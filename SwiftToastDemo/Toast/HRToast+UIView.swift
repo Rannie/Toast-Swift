@@ -18,7 +18,7 @@ import UIKit
 /*
 *  Toast Config
 */
-let HRToastDefaultDuration  =   3.0
+let HRToastDefaultDuration  =   2.0
 let HRToastFadeDuration     =   0.2
 let HRToastHorizontalMargin : CGFloat  =   10.0
 let HRToastVerticalMargin   : CGFloat  =   10.0
@@ -53,6 +53,7 @@ let HRToastCornerRadius   : CGFloat   = 10.0
 
 var HRToastActivityView: UnsafePointer<UIView>    =   nil
 var HRToastTimer: UnsafePointer<NSTimer>          =   nil
+var HRToastView: UnsafePointer<UIView>            =   nil
 
 /*
 *  Custom Config
@@ -96,6 +97,13 @@ extension UIView {
     }
     
     func showToast(#toast: UIView, duration: Double, position: AnyObject) {
+        var existToast = objc_getAssociatedObject(self, &HRToastView) as UIView?
+        if existToast != nil {
+            var timer = objc_getAssociatedObject(existToast, &HRToastTimer) as NSTimer
+            timer.invalidate();
+            self.hideToast(toast: existToast!, force: false);
+        }
+        
         toast.center = self.centerPointForPosition(position, toast: toast)
         toast.alpha = 0.0
         
@@ -107,6 +115,7 @@ extension UIView {
         }
         
         self.addSubview(toast)
+        objc_setAssociatedObject(self, &HRToastView, toast, objc_AssociationPolicy(OBJC_ASSOCIATION_RETAIN))
         
         UIView.animateWithDuration(HRToastFadeDuration,
             delay: 0.0, options: (.CurveEaseOut | .AllowUserInteraction),
@@ -175,7 +184,7 @@ extension UIView {
     }
     
     func hideToastActivity() {
-        var existingActivityView: UIView? = objc_getAssociatedObject(self, &HRToastActivityView) as? UIView
+        var existingActivityView = objc_getAssociatedObject(self, &HRToastActivityView) as UIView?
         if existingActivityView == nil { return }
         UIView.animateWithDuration(HRToastFadeDuration,
             delay: 0.0,
@@ -193,16 +202,26 @@ extension UIView {
     *  private methods (helper)
     */
     func hideToast(#toast: UIView) {
-        UIView.animateWithDuration(HRToastFadeDuration,
-            delay: 0.0,
-            options: (.CurveEaseIn | .BeginFromCurrentState),
-            animations: {
-                toast.alpha = 0.0
-            },
-            completion: { (isFinished: Bool) in
-                toast.removeFromSuperview()
-                objc_setAssociatedObject(self, &HRToastActivityView, nil, objc_AssociationPolicy(OBJC_ASSOCIATION_RETAIN_NONATOMIC))
-        })
+        self.hideToast(toast: toast, force: false);
+    }
+    
+    func hideToast(#toast: UIView, force: Bool) {
+        var completeClosure = { (finish: Bool) -> () in
+            toast.removeFromSuperview()
+            objc_setAssociatedObject(self, &HRToastTimer, nil, objc_AssociationPolicy(OBJC_ASSOCIATION_RETAIN_NONATOMIC))
+        }
+        
+        if force {
+            completeClosure(true)
+        } else {
+            UIView.animateWithDuration(HRToastFadeDuration,
+                delay: 0.0,
+                options: (.CurveEaseIn | .BeginFromCurrentState),
+                animations: {
+                    toast.alpha = 0.0
+                },
+                completion:completeClosure)
+        }
     }
     
     func toastTimerDidFinish(timer: NSTimer) {
