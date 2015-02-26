@@ -8,7 +8,7 @@ Toast view using swift.
 CocoaPods:
 
 ```
-pod 'Toast-Swift'
+pod 'ToastSwift'
 ```
 
 Or download this repo.
