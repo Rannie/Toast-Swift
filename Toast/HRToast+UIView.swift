@@ -99,9 +99,10 @@ extension UIView {
     func showToast(#toast: UIView, duration: Double, position: AnyObject) {
         var existToast = objc_getAssociatedObject(self, &HRToastView) as UIView?
         if existToast != nil {
-            var timer = objc_getAssociatedObject(existToast, &HRToastTimer) as NSTimer
-            timer.invalidate();
-            self.hideToast(toast: existToast!, force: false);
+            if let timer = objc_getAssociatedObject(existToast, &HRToastTimer) as? NSTimer {
+                timer.invalidate();
+                self.hideToast(toast: existToast!, force: false);
+            }
         }
         
         toast.center = self.centerPointForPosition(position, toast: toast)
