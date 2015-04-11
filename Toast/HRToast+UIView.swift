@@ -138,6 +138,14 @@ extension UIView {
     }
     
     func makeToastActivity(position pos: AnyObject, message msg: String = "") {
+		var existToast = objc_getAssociatedObject(self, &HRToastView) as! UIView?
+		        if existToast != nil {
+		            if let timer = objc_getAssociatedObject(existToast, &HRToastTimer) as? NSTimer {
+		                timer.invalidate();
+		                self.hideToast(toast: existToast!, force: false);
+		            }
+		        }
+				
         var existingActivityView: UIView? = objc_getAssociatedObject(self, &HRToastActivityView) as? UIView
         if existingActivityView != nil { return }
         
