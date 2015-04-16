@@ -99,8 +99,9 @@ extension UIView {
     func showToast(#toast: UIView, duration: Double, position: AnyObject) {
         var existToast = objc_getAssociatedObject(self, &HRToastView) as UIView?
         if existToast != nil {
-            var timer = objc_getAssociatedObject(existToast, &HRToastTimer) as NSTimer
-            timer.invalidate();
+            if let timer: NSTimer = objc_getAssociatedObject(existToast, &HRToastTimer) as? NSTimer {
+                timer.invalidate();
+            }
             self.hideToast(toast: existToast!, force: false);
         }
         
