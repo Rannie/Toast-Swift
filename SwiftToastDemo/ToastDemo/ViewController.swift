@@ -70,7 +70,7 @@ class ViewController: UIViewController {
     
     // ui helper
     func quickAddButtonWithTitle(title: String, target: AnyObject!, action: Selector) -> UIButton {
-        var ret = UIButton.buttonWithType(.Custom) as UIButton
+        var ret = UIButton.buttonWithType(.Custom) as! UIButton
         ret.setTitle(title, forState: .Normal)
         ret.setTitleColor(UIColor.redColor(), forState: .Normal)
         ret.addTarget(target, action: action, forControlEvents: .TouchUpInside)

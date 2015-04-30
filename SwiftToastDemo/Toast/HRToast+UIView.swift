@@ -97,7 +97,7 @@ extension UIView {
     }
     
     func showToast(#toast: UIView, duration: Double, position: AnyObject) {
-        var existToast = objc_getAssociatedObject(self, &HRToastView) as UIView?
+        var existToast = objc_getAssociatedObject(self, &HRToastView) as! UIView?
         if existToast != nil {
             if let timer: NSTimer = objc_getAssociatedObject(existToast, &HRToastTimer) as? NSTimer {
                 timer.invalidate();
@@ -164,7 +164,7 @@ extension UIView {
             activityIndicatorView.frame.origin.y -= 10
             var activityMessageLabel = UILabel(frame: CGRectMake(activityView.bounds.origin.x, (activityIndicatorView.frame.origin.y + activityIndicatorView.frame.size.height + 10), activityView.bounds.size.width, 20))
             activityMessageLabel.textColor = UIColor.whiteColor()
-            activityMessageLabel.font = (countElements(msg)<=10) ? UIFont(name:activityMessageLabel.font.fontName, size: 16) : UIFont(name:activityMessageLabel.font.fontName, size: 13)
+            activityMessageLabel.font = (count(msg)<=10) ? UIFont(name:activityMessageLabel.font.fontName, size: 16) : UIFont(name:activityMessageLabel.font.fontName, size: 13)
             activityMessageLabel.textAlignment = .Center
             activityMessageLabel.text = msg
             activityView.addSubview(activityMessageLabel)
@@ -185,7 +185,7 @@ extension UIView {
     }
     
     func hideToastActivity() {
-        var existingActivityView = objc_getAssociatedObject(self, &HRToastActivityView) as UIView?
+        var existingActivityView = objc_getAssociatedObject(self, &HRToastActivityView) as! UIView?
         if existingActivityView == nil { return }
         UIView.animateWithDuration(HRToastFadeDuration,
             delay: 0.0,
@@ -226,11 +226,11 @@ extension UIView {
     }
     
     func toastTimerDidFinish(timer: NSTimer) {
-        self.hideToast(toast: timer.userInfo as UIView)
+        self.hideToast(toast: timer.userInfo as! UIView)
     }
     
     func handleToastTapped(recognizer: UITapGestureRecognizer) {
-        var timer = objc_getAssociatedObject(self, &HRToastTimer) as NSTimer
+        var timer = objc_getAssociatedObject(self, &HRToastTimer) as! NSTimer
         timer.invalidate()
         
         self.hideToast(toast: recognizer.view!)
