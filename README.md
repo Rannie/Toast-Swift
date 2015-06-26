@@ -3,7 +3,7 @@ Toast-Swift
 
 Toast view using swift.
 
-dir demo   ---> swift v1.2
+dir demo   ---> swift v1.2 <br>
 dir toast  ---> swift v2.0 
 
 ### Install
