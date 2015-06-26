@@ -3,6 +3,9 @@ Toast-Swift
 
 Toast view using swift.
 
+dir demo   ---> swift v1.2
+dir toast  ---> swift v2.0 
+
 ### Install
 
 CocoaPods:
