@@ -3,19 +3,12 @@ Toast-Swift
 
 Toast view using swift.
 
-dir demo   ---> swift v1.2 <br>
-dir toast  ---> swift v2.0 
+Dir demo   ---> swift v1.2 <br>
+Dir toast  ---> swift v2.0 
 
 ### Install
 
-CocoaPods:
-
-```
-pod 'ToastSwift'
-```
-
-Or download this repo.
-
+download this repo and import file.
 
 ### Usage
 
