@@ -303,8 +303,9 @@ extension UIView {
             
             // size the title label according to the length of the text
             let maxSizeTitle = CGSizeMake((self.bounds.size.width * HRToastMaxWidth) - imageWidth, self.bounds.size.height * HRToastMaxHeight);
-            let expectedHeight = title!.stringHeightWithFontSize(HRToastFontSize, width: maxSizeTitle.width)
-            titleLabel!.frame = CGRectMake(0.0, 0.0, maxSizeTitle.width, expectedHeight)
+            let expectedWidth = min(maxSizeTitle.width, msg!.stringWidthWithFontSize(HRToastFontSize) + HRToastHorizontalMargin * 2)
+            let expectedHeight = title!.stringHeightWithFontSize(HRToastFontSize, width: expectedWidth)
+            titleLabel!.frame = CGRectMake(0.0, 0.0, expectedWidth, expectedHeight)
         }
         
         if msg != nil {
@@ -319,8 +320,9 @@ extension UIView {
             msgLabel!.text = msg
             
             let maxSizeMessage = CGSizeMake((self.bounds.size.width * HRToastMaxWidth) - imageWidth, self.bounds.size.height * HRToastMaxHeight)
-            let expectedHeight = msg!.stringHeightWithFontSize(HRToastFontSize, width: maxSizeMessage.width)
-            msgLabel!.frame = CGRectMake(0.0, 0.0, maxSizeMessage.width, expectedHeight)
+            let expectedWidth = min(maxSizeMessage.width, msg!.stringWidthWithFontSize(HRToastFontSize) + HRToastHorizontalMargin * 2)
+            let expectedHeight = msg!.stringHeightWithFontSize(HRToastFontSize, width: expectedWidth)
+            msgLabel!.frame = CGRectMake(0.0, 0.0, expectedWidth, expectedHeight)
         }
         
         var titleWidth: CGFloat, titleHeight: CGFloat, titleTop: CGFloat, titleLeft: CGFloat
@@ -382,6 +384,19 @@ extension String {
         let text = self as NSString
         let rect = text.boundingRectWithSize(size, options:.UsesLineFragmentOrigin, attributes: attributes, context:nil)
         return rect.size.height
+    }
+    
+    func stringWidthWithFontSize(fontSize: CGFloat) -> CGFloat {
+        let font = UIFont.systemFontOfSize(fontSize)
+        let size = CGSizeMake(CGFloat.max, CGFloat.max)
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.lineBreakMode = .ByWordWrapping;
+        let attributes = [NSFontAttributeName:font,
+            NSParagraphStyleAttributeName:paragraphStyle.copy()]
+        
+        let text = self as NSString
+        let rect = text.boundingRectWithSize(size, options:.UsesLineFragmentOrigin, attributes: attributes, context:nil)
+        return rect.size.width
     }
     
 }
