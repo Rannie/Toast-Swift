@@ -8,23 +8,20 @@
 
 import UIKit
 
-let ButtonWidth  : CGFloat = 230.0
+let ButtonWidth  : CGFloat = 120.0
 let ButtonHeight : CGFloat = 40.0
 let MarginY      : CGFloat = 10.0
 let MarginX      = (UIScreen.mainScreen().bounds.size.width - ButtonWidth) / 2
 let ThemeColor   = UIColor(red: 255/255.0, green: 163/255.0, blue: 0/255.0, alpha: 1.0)
 
 class ViewController: UIViewController {
-    
-    var presentWindow : UIWindow?
                             
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Swift Toast"
         edgesForExtendedLayout = .None
-        UIView.hr_setToastThemeColor(color: ThemeColor)
-        presentWindow = UIApplication.sharedApplication().keyWindow
         setupButtons()
+        UIView.hr_setToastThemeColor(color: ThemeColor)
     }
     
     func setupButtons() {
@@ -44,12 +41,8 @@ class ViewController: UIViewController {
         showActivityBtn.frame = CGRectMake(MarginX, 5*MarginY + 3*ButtonHeight, ButtonWidth, ButtonHeight)
         view.addSubview(showActivityBtn)
         
-        let showMsgActivityBtn = quickAddButtonWithTitle("Show Activity With Message", target: self, action: Selector("showActivityWithMessage"))
-        showMsgActivityBtn.frame = CGRectMake(MarginX, 6*MarginY + 4*ButtonHeight, ButtonWidth, ButtonHeight)
-        view.addSubview(showMsgActivityBtn)
-        
         let hideActivityBtn   = self.quickAddButtonWithTitle("Hide Activity", target: self, action: Selector("hideActivity"))
-        hideActivityBtn.frame = CGRectMake(MarginX, UIScreen.mainScreen().bounds.size.height - ButtonHeight - MarginY - 64, ButtonWidth, ButtonHeight)
+        hideActivityBtn.frame = CGRectMake(MarginX, 6*MarginY + 4*ButtonHeight, ButtonWidth, ButtonHeight)
         view.addSubview(hideActivityBtn)
     }
     
@@ -59,7 +52,7 @@ class ViewController: UIViewController {
     
     // handle events
     func handleSingleToastClicked(sender: UIButton) {
-        presentWindow!.makeToast(message: sender.titleForState(.Normal)!)
+        view.makeToast(message: sender.titleForState(.Normal)!)
     }
     
     func handleTitleToastClicked(sender: UIButton) {
@@ -68,23 +61,19 @@ class ViewController: UIViewController {
     
     func handleImageToastClicked(sender: UIButton) {
         let image = UIImage(named: "swift-logo.png")
-        presentWindow!.makeToast(message: sender.titleForState(.Normal)!, duration: 2, position: "center", title: "Image!", image: image!)
+        view.makeToast(message: sender.titleForState(.Normal)!, duration: 2, position: "center", title: "Image!", image: image!)
     }
     
     func showActivity() {
-        presentWindow!.makeToastActivity()
-    }
-    
-    func showActivityWithMessage() {
-        presentWindow!.makeToastActivity(message: "Loading...")
+        view.makeToastActivity()
     }
     
     func hideActivity() {
-        presentWindow!.hideToastActivity()
+        view.hideToastActivity()
     }
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        presentWindow!.hideToastActivity()
+        view.hideToastActivity()
     }
     
     // ui helper

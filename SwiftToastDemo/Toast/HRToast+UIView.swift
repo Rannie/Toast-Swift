@@ -110,7 +110,7 @@ extension UIView {
         self.showToast(toast: toast, duration: HRToastDefaultDuration, position: HRToastPositionDefault)
     }
     
-    private func showToast(toast toast: UIView, duration: Double, position: AnyObject) {
+    func showToast(toast toast: UIView, duration: Double, position: AnyObject) {
         let existToast = objc_getAssociatedObject(self, &HRToastView) as! UIView?
         if existToast != nil {
             if let timer: NSTimer = objc_getAssociatedObject(existToast, &HRToastTimer) as? NSTimer {
@@ -147,11 +147,11 @@ extension UIView {
         self.makeToastActivity(position: HRToastActivityPositionDefault)
     }
 
-    func makeToastActivity(message msg: String){
+    func makeToastActivityWithMessage(message msg: String){
         self.makeToastActivity(position: HRToastActivityPositionDefault, message: msg)
     }
     
-    private func makeToastActivity(position pos: AnyObject, message msg: String = "") {
+    func makeToastActivity(position pos: AnyObject, message msg: String = "") {
         let existingActivityView: UIView? = objc_getAssociatedObject(self, &HRToastActivityView) as? UIView
         if existingActivityView != nil { return }
         
@@ -250,7 +250,7 @@ extension UIView {
         self.hideToast(toast: recognizer.view!)
     }
     
-    private func centerPointForPosition(position: AnyObject, toast: UIView) -> CGPoint {
+    func centerPointForPosition(position: AnyObject, toast: UIView) -> CGPoint {
         if position is String {
             let toastSize = toast.bounds.size
             let viewSize  = self.bounds.size
@@ -269,7 +269,7 @@ extension UIView {
         return self.centerPointForPosition(HRToastPositionDefault, toast: toast)
     }
     
-    private func viewForMessage(msg: String?, title: String?, image: UIImage?) -> UIView? {
+    func viewForMessage(msg: String?, title: String?, image: UIImage?) -> UIView? {
         if msg == nil && title == nil && image == nil { return nil }
         
         var msgLabel: UILabel?
