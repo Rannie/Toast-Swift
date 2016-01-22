@@ -48,7 +48,7 @@ Type: image and activity
 <br />
 Type: activity with message
 <br />
-![Fifth Screenshot](https://raw.githubusercontent.com/ilkerdagli/Toast-Swift/master/Screenshots/activityWithMessage.png)
+![Fifth Screenshot](https://raw.githubusercontent.com/ilkerdagli/Toast-Swift/master/Screenshots/activity_message.png)
 
 ### LICENSE
 
