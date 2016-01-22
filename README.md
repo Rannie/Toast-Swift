@@ -3,7 +3,9 @@ Toast-Swift
 
 Toast view using swift.
 
-![First Screenshot](https://raw.githubusercontent.com/Rannie/Toast-Swift/master/Screenshots/NewSwiftToast.PNG)
+![New Screenshot 1](https://raw.githubusercontent.com/Rannie/Toast-Swift/master/Screenshots/new_1.jpeg)
+![New Screenshot 2](https://raw.githubusercontent.com/Rannie/Toast-Swift/master/Screenshots/new_2.jpeg)
+
 
 ### New Toast-Swift is updated!
 
