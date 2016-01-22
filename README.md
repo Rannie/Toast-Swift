@@ -17,7 +17,7 @@ download this repo and import "UIView+HRToast".
 
 ### Usage
 
-1. Set theme color
+1. Set theme color (defalut is UIColor.blackColor())
 
 		view.hr_setToastThemeColor(color: #ThemeColor)
 
