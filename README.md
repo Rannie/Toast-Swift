@@ -9,19 +9,19 @@ Toast view using swift.
 
 
 ### New Toast-Swift has updated!
-===
+===========
 
 New Toast-Swift can compile with Swift 2.1.
 <br />
 And u can set the theme color of the toast view.
 
 ### Install
-===
+===========
 
 download this repo and import "UIView+HRToast".
 
 ### Usage
-===
+===========
 
 1. Set theme color (defalut is UIColor.blackColor())
 
@@ -60,7 +60,7 @@ download this repo and import "UIView+HRToast".
 
 
 ### LICENSE
-===
+===========
 
 The MIT License (MIT)
 
