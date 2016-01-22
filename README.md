@@ -17,26 +17,30 @@ download this repo and import "UIView+HRToast".
 
 ### Usage
 
-1. Single toast view ![First Screenshot](https://raw.github.com/Rannie/Toast-Swift/master/Screenshots/single.png)
+1. Set theme color
 
-          self.view.makeToast(message: msg)
+		view.hr_setToastThemeColor(color: #ThemeColor)
+
+2. Single toast view ![First Screenshot](https://raw.github.com/Rannie/Toast-Swift/master/Screenshots/single.png)
+
+		view.makeToast(message: msg)
           
-2. Toast with title ![Second Screenshot](https://raw.github.com/Rannie/Toast-Swift/master/Screenshots/title.png)
+3. Toast with title ![Second Screenshot](https://raw.github.com/Rannie/Toast-Swift/master/Screenshots/title.png)
 
-          self.view.makeToast(message: msg, duration: duration, position: pos, title: subject)
+		view.makeToast(message: msg, duration: duration, position: pos, title: subject)
           
-3. Toast with image, title... ![Third Screenshot](https://raw.github.com/Rannie/Toast-Swift/master/Screenshots/image.png)
+4. Toast with image, title... ![Third Screenshot](https://raw.github.com/Rannie/Toast-Swift/master/Screenshots/image.png)
 
-          self.view.makeToast(message: msg, duration: duration, position: pos, title: subject, image: image)
+		view.makeToast(message: msg, duration: duration, position: pos, title: subject, image: image)
 
-4. Show and hide activity ![Fourth Screenshot](https://raw.github.com/Rannie/Toast-Swift/master/Screenshots/activity.png)
+5. Show and hide activity ![Fourth Screenshot](https://raw.github.com/Rannie/Toast-Swift/master/Screenshots/activity.png)
 
-          self.view.makeToastActivity()
-          self.view.hideToastActivity()
+		view.makeToastActivity()
+		view.hideToastActivity()
 
-5. Show activity with message ![Fifth Screenshot](https://raw.githubusercontent.com/Rannie/Toast-Swift/master/Screenshots/activity_message.PNG)
+6. Show activity with message ![Fifth Screenshot](https://raw.githubusercontent.com/Rannie/Toast-Swift/master/Screenshots/activity_message.PNG)
 
-        self.view.makeToastActivityWithMessage(message: msg)
+		view.makeToastActivityWithMessage(message: msg)
 
 
 ### LICENSE
