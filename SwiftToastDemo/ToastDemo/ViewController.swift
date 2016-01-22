@@ -12,67 +12,75 @@ let ButtonWidth  : CGFloat = 120.0
 let ButtonHeight : CGFloat = 40.0
 let MarginY      : CGFloat = 10.0
 let MarginX      = (UIScreen.mainScreen().bounds.size.width - ButtonWidth) / 2
+let ThemeColor   = UIColor(red: 255/255.0, green: 163/255.0, blue: 0/255.0, alpha: 1.0)
 
 class ViewController: UIViewController {
                             
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-        self.title = "Swift Toast"
-        self.edgesForExtendedLayout = .None
-        
-        self.setupButtons()
+        title = "Swift Toast"
+        edgesForExtendedLayout = .None
+        setupButtons()
+        UIView.hr_setToastThemeColor(color: ThemeColor)
     }
     
     func setupButtons() {
-        var singleToastBtn   = self.quickAddButtonWithTitle("Single Toast", target: self, action: Selector("handleSingleToastClicked:"))
+        let singleToastBtn   = self.quickAddButtonWithTitle("Single Toast", target: self, action: Selector("handleSingleToastClicked:"))
         singleToastBtn.frame = CGRectMake(MarginX, 2*MarginY, ButtonWidth, ButtonHeight)
-        self.view.addSubview(singleToastBtn)
+        view.addSubview(singleToastBtn)
         
-        var titleToastBtn    = self.quickAddButtonWithTitle("Title Toast", target: self, action: Selector("handleTitleToastClicked:"))
+        let titleToastBtn    = self.quickAddButtonWithTitle("Title Toast", target: self, action: Selector("handleTitleToastClicked:"))
         titleToastBtn.frame  = CGRectMake(MarginX, 3*MarginY + ButtonHeight, ButtonWidth, ButtonHeight)
-        self.view.addSubview(titleToastBtn)
+        view.addSubview(titleToastBtn)
         
-        var imageToastBtn    = self.quickAddButtonWithTitle("Image Toast", target: self, action: Selector("handleImageToastClicked:"))
+        let imageToastBtn    = self.quickAddButtonWithTitle("Image Toast", target: self, action: Selector("handleImageToastClicked:"))
         imageToastBtn.frame  = CGRectMake(MarginX, 4*MarginY + 2*ButtonHeight, ButtonWidth, ButtonHeight)
-        self.view.addSubview(imageToastBtn)
+        view.addSubview(imageToastBtn)
         
-        var showActivityBtn   = self.quickAddButtonWithTitle("Show Activity", target: self, action: Selector("showActivity"))
+        let showActivityBtn   = self.quickAddButtonWithTitle("Show Activity", target: self, action: Selector("showActivity"))
         showActivityBtn.frame = CGRectMake(MarginX, 5*MarginY + 3*ButtonHeight, ButtonWidth, ButtonHeight)
-        self.view.addSubview(showActivityBtn)
+        view.addSubview(showActivityBtn)
         
-        var hideActivityBtn   = self.quickAddButtonWithTitle("Hide Activity", target: self, action: Selector("hideActivity"))
-        hideActivityBtn.frame = CGRectMake(MarginX, 6*MarginY + 6*ButtonHeight, ButtonWidth, ButtonHeight)
-        self.view.addSubview(hideActivityBtn)
+        let hideActivityBtn   = self.quickAddButtonWithTitle("Hide Activity", target: self, action: Selector("hideActivity"))
+        hideActivityBtn.frame = CGRectMake(MarginX, 6*MarginY + 4*ButtonHeight, ButtonWidth, ButtonHeight)
+        view.addSubview(hideActivityBtn)
+    }
+    
+    override func preferredStatusBarStyle() -> UIStatusBarStyle {
+        return UIStatusBarStyle.LightContent
     }
     
     // handle events
     func handleSingleToastClicked(sender: UIButton) {
-        self.view.makeToast(message: sender.titleForState(.Normal)!)
+        view.makeToast(message: sender.titleForState(.Normal)!)
     }
     
     func handleTitleToastClicked(sender: UIButton) {
-        self.view.makeToast(message: sender.titleForState(.Normal)!, duration: 2, position: HRToastPositionTop, title: "<Title>")
+        view.makeToast(message: sender.titleForState(.Normal)!, duration: 2, position: HRToastPositionTop, title: "<Title>")
     }
     
     func handleImageToastClicked(sender: UIButton) {
-        var image = UIImage(named: "swift-logo.png")
-        self.view.makeToast(message: sender.titleForState(.Normal)!, duration: 2, position: "center", title: "Image!", image: image!)
+        let image = UIImage(named: "swift-logo.png")
+        view.makeToast(message: sender.titleForState(.Normal)!, duration: 2, position: "center", title: "Image!", image: image!)
     }
     
     func showActivity() {
-        self.view.makeToastActivity()
+        view.makeToastActivity()
     }
     
     func hideActivity() {
-        self.view.hideToastActivity()
+        view.hideToastActivity()
+    }
+    
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        view.hideToastActivity()
     }
     
     // ui helper
     func quickAddButtonWithTitle(title: String, target: AnyObject!, action: Selector) -> UIButton {
-        var ret = UIButton.buttonWithType(.Custom) as! UIButton
+        let ret = UIButton(type: .Custom)
         ret.setTitle(title, forState: .Normal)
-        ret.setTitleColor(UIColor.redColor(), forState: .Normal)
+        ret.setTitleColor(ThemeColor, forState: .Normal)
         ret.addTarget(target, action: action, forControlEvents: .TouchUpInside)
         return ret
     }
