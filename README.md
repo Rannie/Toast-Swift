@@ -1,55 +1,64 @@
 Toast-Swift
 ===========
 
+![First Screenshot](https://raw.githubusercontent.com/Rannie/Toast-Swift/master/Screenshots/NewSwiftToast.PNG)
+
 Toast view using swift.
 
-Dir demo   ---> swift v1.2 <br>
-Dir toast  ---> swift v2.0 
+### New Toast-Swift is updated!
+
+New Toast-Swift can compile with Swift 2.1.
+<br />
+And u can set the theme color of the toast view.
 
 ### Install
 
-download this repo and import file.
+download this repo and import "UIView+HRToast".
 
 ### Usage
 
-1. Single toast view
+1. Single toast view ![First Screenshot](https://raw.github.com/Rannie/Toast-Swift/master/Screenshots/single.png)
 
           self.view.makeToast(message: msg)
           
-2. Toast with title
+2. Toast with title ![Second Screenshot](https://raw.github.com/Rannie/Toast-Swift/master/Screenshots/title.png)
 
           self.view.makeToast(message: msg, duration: duration, position: pos, title: subject)
           
-3. Toast with image, title...
+3. Toast with image, title... ![Third Screenshot](https://raw.github.com/Rannie/Toast-Swift/master/Screenshots/image.png)
 
           self.view.makeToast(message: msg, duration: duration, position: pos, title: subject, image: image)
 
-4. Show and hide activity
+4. Show and hide activity ![Fourth Screenshot](https://raw.github.com/Rannie/Toast-Swift/master/Screenshots/activity.png)
 
           self.view.makeToastActivity()
           self.view.hideToastActivity()
 
-5. Show activity with message
+5. Show activity with message ![Fifth Screenshot](https://raw.githubusercontent.com/Rannie/Toast-Swift/master/Screenshots/activity_message.PNG)
 
         self.view.makeToastActivityWithMessage(message: msg)
-          
-          
-### Screenshots
 
-Type: single and title
-<br />
-![First Screenshot](https://raw.github.com/Rannie/Toast-Swift/master/Screenshots/single.png)
-![Second Screenshot](https://raw.github.com/Rannie/Toast-Swift/master/Screenshots/title.png)
-<br />
-Type: image and activity
-<br />
-![Third Screenshot](https://raw.github.com/Rannie/Toast-Swift/master/Screenshots/image.png)
-![Fourth Screenshot](https://raw.github.com/Rannie/Toast-Swift/master/Screenshots/activity.png)
-<br />
-Type: activity with message
-<br />
-![Fifth Screenshot](https://raw.githubusercontent.com/Rannie/Toast-Swift/master/Screenshots/activity_message.PNG)
 
 ### LICENSE
 
-Toast-Swift is available under the MIT license. See the LICENSE file for more info.
+The MIT License (MIT)
+
+Copyright (c) 2016 Hanran Liu
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
