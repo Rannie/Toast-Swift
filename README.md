@@ -8,7 +8,7 @@ Toast view using swift.
 ![New Screenshot 3](https://raw.githubusercontent.com/Rannie/Toast-Swift/master/Screenshots/new_3.PNG)
 
 
-### New Toast-Swift has updated!
+### New Toast-Swift has been updated!
 ---------
 
 New Toast-Swift can compile with Swift 2.1.
