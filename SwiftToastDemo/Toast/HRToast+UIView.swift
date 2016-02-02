@@ -4,6 +4,7 @@
 //
 //  Created by Rannie on 14/7/6.
 //  Copyright (c) 2014年 Rannie. All rights reserved.
+//  https://github.com/Rannie/Toast-Swift
 //
 
 import UIKit
@@ -11,7 +12,7 @@ import UIKit
 /*
 *  Infix overload method
 */
- func /(lhs: CGFloat, rhs: Int) -> CGFloat {
+func /(lhs: CGFloat, rhs: Int) -> CGFloat {
     return lhs / CGFloat(rhs)
 }
 
@@ -55,6 +56,9 @@ var HRToastActivityView: UnsafePointer<UIView>    =   nil
 var HRToastTimer: UnsafePointer<NSTimer>          =   nil
 var HRToastView: UnsafePointer<UIView>            =   nil
 var HRToastThemeColor : UnsafePointer<UIColor>    =   nil
+var HRToastTitleFontName: UnsafePointer<String>   =   nil
+var HRToastFontName: UnsafePointer<String>        =   nil
+var HRToastFontColor: UnsafePointer<UIColor>      =   nil
 
 /*
 *  Custom Config
@@ -79,6 +83,50 @@ extension UIView {
             color = UIColor.blackColor()
             UIView.hr_setToastThemeColor(color: color!)
         }
+        return color!
+    }
+    
+    class func hr_setToastTitleFontName(fontName fontName: String) {
+        objc_setAssociatedObject(self, &HRToastTitleFontName, fontName, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+    }
+    
+    class func hr_toastTitleFontName() -> String {
+        var name = objc_getAssociatedObject(self, &HRToastTitleFontName) as! String?
+        if name == nil {
+            let font = UIFont.systemFontOfSize(12.0)
+            name = font.fontName
+            UIView.hr_setToastTitleFontName(fontName: name!)
+        }
+        
+        return name!
+    }
+    
+    class func hr_setToastFontName(fontName fontName: String) {
+        objc_setAssociatedObject(self, &HRToastFontName, fontName, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+    }
+    
+    class func hr_toastFontName() -> String {
+        var name = objc_getAssociatedObject(self, &HRToastFontName) as! String?
+        if name == nil {
+            let font = UIFont.systemFontOfSize(12.0)
+            name = font.fontName
+            UIView.hr_setToastFontName(fontName: name!)
+        }
+        
+        return name!
+    }
+    
+    class func hr_setToastFontColor(color color: UIColor) {
+        objc_setAssociatedObject(self, &HRToastFontColor, color, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+    }
+    
+    class func hr_toastFontColor() -> UIColor {
+        var color = objc_getAssociatedObject(self, &HRToastFontColor) as! UIColor?
+        if color == nil {
+            color = UIColor.whiteColor()
+            UIView.hr_setToastFontColor(color: color!)
+        }
+        
         return color!
     }
     
@@ -146,7 +194,7 @@ extension UIView {
     func makeToastActivity() {
         self.makeToastActivity(position: HRToastActivityPositionDefault)
     }
-
+    
     func makeToastActivity(message msg: String){
         self.makeToastActivity(position: HRToastActivityPositionDefault, message: msg)
     }
@@ -177,13 +225,13 @@ extension UIView {
         if (!msg.isEmpty){
             activityIndicatorView.frame.origin.y -= 10
             let activityMessageLabel = UILabel(frame: CGRectMake(activityView.bounds.origin.x, (activityIndicatorView.frame.origin.y + activityIndicatorView.frame.size.height + 10), activityView.bounds.size.width, 20))
-            activityMessageLabel.textColor = UIColor.whiteColor()
-            activityMessageLabel.font = (msg.characters.count<=10) ? UIFont(name:activityMessageLabel.font.fontName, size: 16) : UIFont(name:activityMessageLabel.font.fontName, size: 13)
+            activityMessageLabel.textColor = UIView.hr_toastFontColor()
+            activityMessageLabel.font = (msg.characters.count<=10) ? UIFont(name:UIView.hr_toastFontName(), size: 16) : UIFont(name:UIView.hr_toastFontName(), size: 13)
             activityMessageLabel.textAlignment = .Center
             activityMessageLabel.text = msg
             activityView.addSubview(activityMessageLabel)
         }
-
+        
         self.addSubview(activityView)
         
         // associate activity view with self
@@ -306,10 +354,10 @@ extension UIView {
         if title != nil {
             titleLabel = UILabel()
             titleLabel!.numberOfLines = HRToastMaxTitleLines
-            titleLabel!.font = UIFont.boldSystemFontOfSize(HRToastFontSize)
+            titleLabel!.font = UIFont(name: UIView.hr_toastFontName(), size: HRToastFontSize)
             titleLabel!.textAlignment = .Center
             titleLabel!.lineBreakMode = .ByWordWrapping
-            titleLabel!.textColor = UIColor.whiteColor()
+            titleLabel!.textColor = UIView.hr_toastFontColor()
             titleLabel!.backgroundColor = UIColor.clearColor()
             titleLabel!.alpha = 1.0
             titleLabel!.text = title
@@ -323,10 +371,10 @@ extension UIView {
         if msg != nil {
             msgLabel = UILabel();
             msgLabel!.numberOfLines = HRToastMaxMessageLines
-            msgLabel!.font = UIFont.systemFontOfSize(HRToastFontSize)
+            msgLabel!.font = UIFont(name: UIView.hr_toastFontName(), size: HRToastFontSize)
             msgLabel!.lineBreakMode = .ByWordWrapping
             msgLabel!.textAlignment = .Center
-            msgLabel!.textColor = UIColor.whiteColor()
+            msgLabel!.textColor = UIView.hr_toastFontColor()
             msgLabel!.backgroundColor = UIColor.clearColor()
             msgLabel!.alpha = 1.0
             msgLabel!.text = msg
@@ -385,11 +433,11 @@ extension UIView {
 extension String {
     
     func stringHeightWithFontSize(fontSize: CGFloat,width: CGFloat) -> CGFloat {
-        let font = UIFont.systemFontOfSize(fontSize)
+        let font = UIFont(name: UIView.hr_toastFontName(), size: HRToastFontSize)
         let size = CGSizeMake(width, CGFloat.max)
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.lineBreakMode = .ByWordWrapping;
-        let attributes = [NSFontAttributeName:font,
+        let attributes = [NSFontAttributeName:font!,
             NSParagraphStyleAttributeName:paragraphStyle.copy()]
         
         let text = self as NSString
@@ -398,5 +446,4 @@ extension String {
     }
     
 }
-
 
