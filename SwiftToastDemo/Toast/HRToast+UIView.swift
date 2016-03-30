@@ -171,7 +171,7 @@ extension UIView {
         toast.alpha = 0.0
         
         if HRToastHidesOnTap {
-            let tapRecognizer = UITapGestureRecognizer(target: toast, action: Selector("handleToastTapped:"))
+            let tapRecognizer = UITapGestureRecognizer(target: toast, action: #selector(UIView.handleToastTapped(_:)))
             toast.addGestureRecognizer(tapRecognizer)
             toast.userInteractionEnabled = true;
             toast.exclusiveTouch = true;
@@ -186,7 +186,7 @@ extension UIView {
                 toast.alpha = 1.0
             },
             completion: { (finished: Bool) in
-                let timer = NSTimer.scheduledTimerWithTimeInterval(duration, target: self, selector: Selector("toastTimerDidFinish:"), userInfo: toast, repeats: false)
+                let timer = NSTimer.scheduledTimerWithTimeInterval(duration, target: self, selector: #selector(UIView.toastTimerDidFinish(_:)), userInfo: toast, repeats: false)
                 objc_setAssociatedObject(toast, &HRToastTimer, timer, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         })
     }

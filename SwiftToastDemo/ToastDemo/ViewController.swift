@@ -28,27 +28,27 @@ class ViewController: UIViewController {
     }
     
     func setupButtons() {
-        let singleToastBtn   = self.quickAddButtonWithTitle("Single Toast", target: self, action: Selector("handleSingleToastClicked:"))
+        let singleToastBtn   = self.quickAddButtonWithTitle("Single Toast", target: self, action: #selector(ViewController.handleSingleToastClicked(_:)))
         singleToastBtn.frame = CGRectMake(MarginX, 2*MarginY, ButtonWidth, ButtonHeight)
         view.addSubview(singleToastBtn)
         
-        let titleToastBtn    = self.quickAddButtonWithTitle("Title Toast", target: self, action: Selector("handleTitleToastClicked:"))
+        let titleToastBtn    = self.quickAddButtonWithTitle("Title Toast", target: self, action: #selector(ViewController.handleTitleToastClicked(_:)))
         titleToastBtn.frame  = CGRectMake(MarginX, 3*MarginY + ButtonHeight, ButtonWidth, ButtonHeight)
         view.addSubview(titleToastBtn)
         
-        let imageToastBtn    = self.quickAddButtonWithTitle("Image Toast", target: self, action: Selector("handleImageToastClicked:"))
+        let imageToastBtn    = self.quickAddButtonWithTitle("Image Toast", target: self, action: #selector(ViewController.handleImageToastClicked(_:)))
         imageToastBtn.frame  = CGRectMake(MarginX, 4*MarginY + 2*ButtonHeight, ButtonWidth, ButtonHeight)
         view.addSubview(imageToastBtn)
         
-        let showActivityBtn   = self.quickAddButtonWithTitle("Show Activity", target: self, action: Selector("showActivity"))
+        let showActivityBtn   = self.quickAddButtonWithTitle("Show Activity", target: self, action: #selector(ViewController.showActivity))
         showActivityBtn.frame = CGRectMake(MarginX, 5*MarginY + 3*ButtonHeight, ButtonWidth, ButtonHeight)
         view.addSubview(showActivityBtn)
         
-        let showMsgActivityBtn = quickAddButtonWithTitle("Show Activity With Message", target: self, action: Selector("showActivityWithMessage"))
+        let showMsgActivityBtn = quickAddButtonWithTitle("Show Activity With Message", target: self, action: #selector(ViewController.showActivityWithMessage))
         showMsgActivityBtn.frame = CGRectMake(MarginX, 6*MarginY + 4*ButtonHeight, ButtonWidth, ButtonHeight)
         view.addSubview(showMsgActivityBtn)
         
-        let hideActivityBtn   = self.quickAddButtonWithTitle("Hide Activity", target: self, action: Selector("hideActivity"))
+        let hideActivityBtn   = self.quickAddButtonWithTitle("Hide Activity", target: self, action: #selector(ViewController.hideActivity))
         hideActivityBtn.frame = CGRectMake(MarginX, UIScreen.mainScreen().bounds.size.height - ButtonHeight - MarginY - 64, ButtonWidth, ButtonHeight)
         view.addSubview(hideActivityBtn)
     }
