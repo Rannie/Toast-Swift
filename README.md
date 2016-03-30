@@ -11,7 +11,7 @@ Toast view using swift.
 ### New Toast-Swift has been updated!
 ---------
 
-New Toast-Swift can compile with Swift 2.1.
+New Toast-Swift can compile with Swift 2.2.
 <br />
 And u can set the theme color of the toast view.
 
