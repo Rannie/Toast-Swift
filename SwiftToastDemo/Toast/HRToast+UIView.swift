@@ -60,6 +60,8 @@ var HRToastTitleFontName: UnsafePointer<String>   =   nil
 var HRToastFontName: UnsafePointer<String>        =   nil
 var HRToastFontColor: UnsafePointer<UIColor>      =   nil
 
+var FullScreen = false
+
 /*
 *  Custom Config
 */
@@ -192,10 +194,21 @@ extension UIView {
     }
     
     func makeToastActivity() {
+        FullScreen = false
         self.makeToastActivity(position: HRToastActivityPositionDefault)
     }
     
     func makeToastActivity(message msg: String){
+        FullScreen = false
+        self.makeToastActivity(position: HRToastActivityPositionDefault, message: msg)
+    }
+    
+    func makeToastActivityFullScreen() {
+        FullScreen = true
+        self.makeToastActivity(position: HRToastActivityPositionDefault)
+    }
+    func makeToastActivityFullScreen(message msg: String) {
+        FullScreen = true
         self.makeToastActivity(position: HRToastActivityPositionDefault, message: msg)
     }
     
@@ -203,12 +216,19 @@ extension UIView {
         let existingActivityView: UIView? = objc_getAssociatedObject(self, &HRToastActivityView) as? UIView
         if existingActivityView != nil { return }
         
-        let activityView = UIView(frame: CGRectMake(0, 0, HRToastActivityWidth, HRToastActivityHeight))
+        var activityView = UIView()
+        if FullScreen {
+             activityView = UIView(frame: CGRectMake(0, 0, UIScreen.mainScreen().bounds.width , UIScreen.mainScreen().bounds.height))
+        }
+        else {
+            activityView = UIView(frame: CGRectMake(0, 0, HRToastActivityWidth, HRToastActivityHeight))
+            activityView.layer.cornerRadius = HRToastCornerRadius
+        }
+        
         activityView.center = self.centerPointForPosition(pos, toast: activityView)
         activityView.backgroundColor = UIView.hr_toastThemeColor().colorWithAlphaComponent(HRToastOpacity)
         activityView.alpha = 0.0
         activityView.autoresizingMask = ([.FlexibleLeftMargin, .FlexibleTopMargin, .FlexibleRightMargin, .FlexibleBottomMargin])
-        activityView.layer.cornerRadius = HRToastCornerRadius
         
         if HRToastDisplayShadow {
             activityView.layer.shadowColor = UIView.hr_toastThemeColor().CGColor
