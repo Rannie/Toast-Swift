@@ -445,6 +445,9 @@ extension UIView {
             wrapperView.addSubview(imageView!)
         }
         
+        // show it on top of all views
+        wrapperView.layer.zPosition = 5
+        
         return wrapperView
     }
     
