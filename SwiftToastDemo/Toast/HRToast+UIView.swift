@@ -68,7 +68,7 @@ let HRToastDisplayShadow    =   true
 
 //HRToast (UIView + Toast using Swift)
 
-extension UIView {
+public extension UIView {
     
     /*
     *  public methods
@@ -432,7 +432,7 @@ extension UIView {
     
 }
 
-extension String {
+public extension String {
     
     func stringHeightWithFontSize(_ fontSize: CGFloat,width: CGFloat) -> CGFloat {
         let font = UIFont(name: UIView.hr_toastFontName(), size: HRToastFontSize)
