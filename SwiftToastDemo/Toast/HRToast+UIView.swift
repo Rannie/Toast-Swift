@@ -27,6 +27,7 @@ let HRToastVerticalMargin   : CGFloat  =   10.0
 let HRToastPositionDefault  =   "bottom"
 let HRToastPositionTop      =   "top"
 let HRToastPositionCenter   =   "center"
+let HRToastPositionVerticalOffset : CGFloat = 10.0
 
 // activity
 let HRToastActivityWidth  :  CGFloat  = 100.0
@@ -311,9 +312,9 @@ public extension UIView {
         
         if position is String {
             if position.lowercased == HRToastPositionTop {
-                return toastSize.height/2 + HRToastVerticalMargin
+                return toastSize.height/2 + HRToastPositionVerticalOffset
             } else if position.lowercased == HRToastPositionDefault {
-                return viewSize.height - toastSize.height/2 - HRToastVerticalMargin
+                return viewSize.height - toastSize.height/2 - HRToastPositionVerticalOffset
             } else if position.lowercased == HRToastPositionCenter {
                 return viewSize.height/2
             }
