@@ -17,7 +17,7 @@ let ThemeColor   = UIColor(red: 255/255.0, green: 163/255.0, blue: 0/255.0, alph
 class ViewController: UIViewController {
     
     var presentWindow : UIWindow?
-                            
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Swift Toast"
@@ -36,16 +36,20 @@ class ViewController: UIViewController {
         titleToastBtn.frame  = CGRect(x: MarginX, y: 3*MarginY + ButtonHeight, width: ButtonWidth, height: ButtonHeight)
         view.addSubview(titleToastBtn)
         
-        let imageToastBtn    = quickAddButtonWithTitle("Image Toast", target: self, action: #selector(ViewController.handleImageToastClicked(_:)))
-        imageToastBtn.frame  = CGRect(x: MarginX, y: 4*MarginY + 2*ButtonHeight, width: ButtonWidth, height: ButtonHeight)
-        view.addSubview(imageToastBtn)
+        let largeImageToastBtn    = quickAddButtonWithTitle("Large Image Toast", target: self, action: #selector(ViewController.handleLargeImageToastClicked(_:)))
+        largeImageToastBtn.frame  = CGRect(x: MarginX, y: 4*MarginY + 2*ButtonHeight, width: ButtonWidth, height: ButtonHeight)
+        view.addSubview(largeImageToastBtn)
+        
+        let smallImageToastBtn    = quickAddButtonWithTitle("Small Image Toast", target: self, action: #selector(ViewController.handleSmallImageToastClicked(_:)))
+        smallImageToastBtn.frame  = CGRect(x: MarginX, y: 5*MarginY + 3*ButtonHeight, width: ButtonWidth, height: ButtonHeight)
+        view.addSubview(smallImageToastBtn)
         
         let showActivityBtn   = quickAddButtonWithTitle("Show Activity", target: self, action: #selector(ViewController.showActivity))
-        showActivityBtn.frame = CGRect(x: MarginX, y: 5*MarginY + 3*ButtonHeight, width: ButtonWidth, height: ButtonHeight)
+        showActivityBtn.frame = CGRect(x: MarginX, y: 6*MarginY + 4*ButtonHeight, width: ButtonWidth, height: ButtonHeight)
         view.addSubview(showActivityBtn)
         
         let showMsgActivityBtn = quickAddButtonWithTitle("Show Activity With Message", target: self, action: #selector(ViewController.showActivityWithMessage))
-        showMsgActivityBtn.frame = CGRect(x: MarginX, y: 6*MarginY + 4*ButtonHeight, width: ButtonWidth, height: ButtonHeight)
+        showMsgActivityBtn.frame = CGRect(x: MarginX, y: 7*MarginY + 5*ButtonHeight, width: ButtonWidth, height: ButtonHeight)
         view.addSubview(showMsgActivityBtn)
         
         let hideActivityBtn   = quickAddButtonWithTitle("Hide Activity", target: self, action: #selector(ViewController.hideActivity))
@@ -66,9 +70,14 @@ class ViewController: UIViewController {
         view.makeToast(message: sender.title(for: UIControlState())!, duration: 2, position: HRToastPositionTop as AnyObject, title: "<Title>")
     }
     
-    func handleImageToastClicked(_ sender: UIButton) {
+    func handleLargeImageToastClicked(_ sender: UIButton) {
         let image = UIImage(named: "swift-logo.png")
-        presentWindow!.makeToast(message: sender.title(for: UIControlState())!, duration: 2, position: "center" as AnyObject, title: "Image!", image: image!)
+        presentWindow!.makeToast(message: sender.title(for: UIControlState())!, duration: 2, position: "center" as AnyObject, title: "Large Image!", image: image!)
+    }
+    
+    func handleSmallImageToastClicked(_ sender: UIButton) {
+        let image = UIImage(named: "small-image")
+        presentWindow!.makeToast(message: sender.title(for: UIControlState())!, duration: 2, position: "center" as AnyObject, title: "Small Image!", image: image!)
     }
     
     func showActivity() {
