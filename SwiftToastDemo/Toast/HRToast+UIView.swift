@@ -57,6 +57,8 @@ public struct HRToastConfig {
      */
     var HRToastHidesOnTap       =   true
     var HRToastDisplayShadow    =   true
+    
+    public init() {}
 }
 
 let HRToastPositionDefault  =   "bottom"
@@ -168,7 +170,7 @@ public extension UIView {
     fileprivate func showToast(toast: UIView, duration: Double, position: AnyObject, withConfiguration config: HRToastConfig) {
         let existToast = objc_getAssociatedObject(self, &HRToastView) as! UIView?
         if existToast != nil {
-            if let timer: Timer = objc_getAssociatedObject(existToast, &HRToastTimer) as? Timer {
+            if let timer: Timer = objc_getAssociatedObject(existToast as Any, &HRToastTimer) as? Timer {
                 timer.invalidate()
             }
             hideToast(toast: existToast!, force: false, withConfiguration: config);
@@ -302,11 +304,11 @@ public extension UIView {
         }
     }
     
-    func toastTimerDidFinish(_ timer: Timer) {
+    @objc func toastTimerDidFinish(_ timer: Timer) {
         hideToast(toast: timer.userInfo as! UIView)
     }
     
-    func handleToastTapped(_ recognizer: UITapGestureRecognizer) {
+    @objc func handleToastTapped(_ recognizer: UITapGestureRecognizer) {
         let timer = objc_getAssociatedObject(self, &HRToastTimer) as? Timer
         
         if let timer = timer {
@@ -396,22 +398,22 @@ public extension UIView {
         stackView.alignment = .center
         stackView.distribution = .fill
         stackView.spacing = config.HRToastVerticalMargin
-        stackView.setContentHuggingPriority(1000, for: .vertical)
-        stackView.setContentHuggingPriority(1000, for: .horizontal)
+        stackView.setContentHuggingPriority(UILayoutPriority(rawValue: 1000), for: .vertical)
+        stackView.setContentHuggingPriority(UILayoutPriority(rawValue: 1000), for: .horizontal)
         
         wrapperView.addSubview(stackView)
         stackView.centerXAnchor.constraint(equalTo: wrapperView.centerXAnchor).isActive = true
         let leftSideConstraint = stackView.leftAnchor.constraint(greaterThanOrEqualTo: wrapperView.leftAnchor, constant: config.HRToastHorizontalMargin)
-        leftSideConstraint.priority = 1000
+        leftSideConstraint.priority = UILayoutPriority(rawValue: 1000)
         leftSideConstraint.isActive = true
         let rightSideConstraint = stackView.rightAnchor.constraint(lessThanOrEqualTo: wrapperView.rightAnchor, constant: -config.HRToastHorizontalMargin)
-        rightSideConstraint.priority = 1000
+        rightSideConstraint.priority = UILayoutPriority(rawValue: 1000)
         rightSideConstraint.isActive = true
         let leftSideEqualConstraint = stackView.leftAnchor.constraint(equalTo: wrapperView.leftAnchor, constant: config.HRToastHorizontalMargin)
-        leftSideEqualConstraint.priority = 250
+        leftSideEqualConstraint.priority = UILayoutPriority(rawValue: 250)
         leftSideEqualConstraint.isActive = true
         let rightSideEqualConstraint = stackView.rightAnchor.constraint(equalTo: wrapperView.rightAnchor, constant: -config.HRToastHorizontalMargin)
-        rightSideEqualConstraint.priority = 250
+        rightSideEqualConstraint.priority = UILayoutPriority(rawValue: 250)
         rightSideEqualConstraint.isActive = true
         stackView.topAnchor.constraint(equalTo: wrapperView.topAnchor, constant: config.HRToastVerticalMargin).isActive = true
         stackView.bottomAnchor.constraint(equalTo: wrapperView.bottomAnchor, constant: -config.HRToastVerticalMargin).isActive = true
@@ -422,8 +424,8 @@ public extension UIView {
     fileprivate func addImage(_ image: UIImage, toStackView stackView: UIStackView) {
         let imageView = UIImageView(image: image)
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.setContentHuggingPriority(1000, for: .horizontal)
-        imageView.setContentHuggingPriority(1000, for: .vertical)
+        imageView.setContentHuggingPriority(UILayoutPriority(rawValue: 1000), for: .horizontal)
+        imageView.setContentHuggingPriority(UILayoutPriority(rawValue: 1000), for: .vertical)
         
         stackView.addArrangedSubview(imageView)
     }
@@ -438,8 +440,8 @@ public extension UIView {
         stackView.spacing = config.HRToastVerticalMargin
         parentStackView.addArrangedSubview(stackView)
         
-        stackView.setContentHuggingPriority(1000, for: .vertical)
-        stackView.setContentHuggingPriority(1000, for: .horizontal)
+        stackView.setContentHuggingPriority(UILayoutPriority(rawValue: 1000), for: .vertical)
+        stackView.setContentHuggingPriority(UILayoutPriority(rawValue: 1000), for: .horizontal)
         
         if let title = title {
             let titleLabel = UILabel()
@@ -453,7 +455,7 @@ public extension UIView {
             titleLabel.alpha = 1.0
             titleLabel.text = title
             
-            titleLabel.setContentHuggingPriority(751, for: .vertical)
+            titleLabel.setContentHuggingPriority(UILayoutPriority(rawValue: 751), for: .vertical)
             stackView.addArrangedSubview(titleLabel)
         }
         
@@ -469,7 +471,7 @@ public extension UIView {
             msgLabel.alpha = 1.0
             msgLabel.text = msg
             
-            msgLabel.setContentHuggingPriority(751, for: .vertical)
+            msgLabel.setContentHuggingPriority(UILayoutPriority(rawValue: 751), for: .vertical)
             stackView.addArrangedSubview(msgLabel)
         }
     }
