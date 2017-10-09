@@ -62,33 +62,33 @@ class ViewController: UIViewController {
     }
     
     // handle events
-    func handleSingleToastClicked(_ sender: UIButton) {
+    @objc func handleSingleToastClicked(_ sender: UIButton) {
         presentWindow!.makeToast(message: sender.title(for: UIControlState())!)
     }
     
-    func handleTitleToastClicked(_ sender: UIButton) {
+    @objc func handleTitleToastClicked(_ sender: UIButton) {
         view.makeToast(message: sender.title(for: UIControlState())!, duration: 2, position: HRToastPositionTop as AnyObject, title: "<Title>")
     }
     
-    func handleLargeImageToastClicked(_ sender: UIButton) {
+    @objc func handleLargeImageToastClicked(_ sender: UIButton) {
         let image = UIImage(named: "swift-logo.png")
         presentWindow!.makeToast(message: sender.title(for: UIControlState())!, duration: 2, position: "center" as AnyObject, title: "Large Image!", image: image!)
     }
     
-    func handleSmallImageToastClicked(_ sender: UIButton) {
+    @objc func handleSmallImageToastClicked(_ sender: UIButton) {
         let image = UIImage(named: "small-image")
         presentWindow!.makeToast(message: sender.title(for: UIControlState())!, duration: 2, position: "center" as AnyObject, title: "Small Image!", image: image!)
     }
     
-    func showActivity() {
+    @objc func showActivity() {
         presentWindow!.makeToastActivity()
     }
     
-    func showActivityWithMessage() {
+    @objc func showActivityWithMessage() {
         presentWindow!.makeToastActivity(message: "Loading...")
     }
     
-    func hideActivity() {
+    @objc func hideActivity() {
         presentWindow!.hideToastActivity()
     }
     
