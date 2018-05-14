@@ -27,6 +27,7 @@ public struct HRToastConfig {
 
     var HRToastPositionVerticalOffset : CGFloat = 10.0
     var HRToastPosition                         = HRToastPositionDefault
+    var HRToastzPosition              : CGFloat = 2.0
 
     // activity
     var HRToastActivityWidth  :  CGFloat  = 100.0
@@ -378,6 +379,7 @@ public extension UIView {
         let initialView = UIView()
         initialView.translatesAutoresizingMaskIntoConstraints = false
         initialView.layer.cornerRadius = config.HRToastCornerRadius
+        initialView.layer.zPosition = config.HRToastzPosition
         initialView.backgroundColor = UIView.hr_toastThemeColor().withAlphaComponent(config.HRToastOpacity)
         
         if config.HRToastDisplayShadow {
