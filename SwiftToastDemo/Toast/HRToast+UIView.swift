@@ -188,11 +188,13 @@ public extension UIView {
         }
         
         addSubview(toast)
-        let desiredSize = toast.systemLayoutSizeFitting(UILayoutFittingCompressedSize)
         let sidePadding = self.bounds.width * (1 - config.HRToastMaxWidth) / 2
         toast.leftAnchor.constraint(equalTo: self.leftAnchor, constant: sidePadding).isActive = true
         toast.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -sidePadding).isActive = true
+        
+        let desiredSize = toast.systemLayoutSizeFitting(UILayoutFittingCompressedSize)
         toast.heightAnchor.constraint(equalToConstant: desiredSize.height).isActive = true
+        
         let yPosition = yPositionForToastPosition(position, toastSize: desiredSize, withConfiguration: config)
         toast.centerYAnchor.constraint(equalTo: self.topAnchor, constant: yPosition).isActive = true
         objc_setAssociatedObject(self, &HRToastView, toast, .OBJC_ASSOCIATION_RETAIN)
