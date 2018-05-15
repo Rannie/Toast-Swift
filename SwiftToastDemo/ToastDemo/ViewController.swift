@@ -32,28 +32,32 @@ class ViewController: UIViewController {
         singleToastBtn.frame = CGRect(x: MarginX, y: 2*MarginY, width: ButtonWidth, height: ButtonHeight)
         view.addSubview(singleToastBtn)
         
+        let longToastBtn = quickAddButtonWithTitle("Long Toast", target: self, action: #selector(ViewController.handleLongMessageToastClicked(_:)))
+        longToastBtn.frame = CGRect(x: MarginX, y: 3*MarginY + ButtonHeight, width: ButtonWidth, height: ButtonHeight)
+        view.addSubview(longToastBtn)
+        
         let titleToastBtn    = quickAddButtonWithTitle("Title Toast", target: self, action: #selector(ViewController.handleTitleToastClicked(_:)))
-        titleToastBtn.frame  = CGRect(x: MarginX, y: 3*MarginY + ButtonHeight, width: ButtonWidth, height: ButtonHeight)
+        titleToastBtn.frame  = CGRect(x: MarginX, y: 4*MarginY + 2*ButtonHeight, width: ButtonWidth, height: ButtonHeight)
         view.addSubview(titleToastBtn)
         
         let largeImageToastBtn    = quickAddButtonWithTitle("Large Image Toast", target: self, action: #selector(ViewController.handleLargeImageToastClicked(_:)))
-        largeImageToastBtn.frame  = CGRect(x: MarginX, y: 4*MarginY + 2*ButtonHeight, width: ButtonWidth, height: ButtonHeight)
+        largeImageToastBtn.frame  = CGRect(x: MarginX, y: 5*MarginY + 3*ButtonHeight, width: ButtonWidth, height: ButtonHeight)
         view.addSubview(largeImageToastBtn)
         
         let smallImageToastBtn    = quickAddButtonWithTitle("Small Image Toast", target: self, action: #selector(ViewController.handleSmallImageToastClicked(_:)))
-        smallImageToastBtn.frame  = CGRect(x: MarginX, y: 5*MarginY + 3*ButtonHeight, width: ButtonWidth, height: ButtonHeight)
+        smallImageToastBtn.frame  = CGRect(x: MarginX, y: 6*MarginY + 4*ButtonHeight, width: ButtonWidth, height: ButtonHeight)
         view.addSubview(smallImageToastBtn)
         
         let showActivityBtn   = quickAddButtonWithTitle("Show Activity", target: self, action: #selector(ViewController.showActivity))
-        showActivityBtn.frame = CGRect(x: MarginX, y: 6*MarginY + 4*ButtonHeight, width: ButtonWidth, height: ButtonHeight)
+        showActivityBtn.frame = CGRect(x: MarginX, y: 7*MarginY + 5*ButtonHeight, width: ButtonWidth, height: ButtonHeight)
         view.addSubview(showActivityBtn)
         
         let showMsgActivityBtn = quickAddButtonWithTitle("Show Activity With Message", target: self, action: #selector(ViewController.showActivityWithMessage))
-        showMsgActivityBtn.frame = CGRect(x: MarginX, y: 7*MarginY + 5*ButtonHeight, width: ButtonWidth, height: ButtonHeight)
+        showMsgActivityBtn.frame = CGRect(x: MarginX, y: 8*MarginY + 6*ButtonHeight, width: ButtonWidth, height: ButtonHeight)
         view.addSubview(showMsgActivityBtn)
         
         let hideActivityBtn   = quickAddButtonWithTitle("Hide Activity", target: self, action: #selector(ViewController.hideActivity))
-        hideActivityBtn.frame = CGRect(x: MarginX, y: UIScreen.main.bounds.size.height - ButtonHeight - MarginY - 64, width: ButtonWidth, height: ButtonHeight)
+        hideActivityBtn.frame = CGRect(x: MarginX, y: UIScreen.main.bounds.size.height - ButtonHeight - MarginY - 100, width: ButtonWidth, height: ButtonHeight)
         view.addSubview(hideActivityBtn)
     }
     
@@ -64,6 +68,10 @@ class ViewController: UIViewController {
     // handle events
     @objc func handleSingleToastClicked(_ sender: UIButton) {
         presentWindow!.makeToast(message: sender.title(for: UIControlState())!)
+    }
+    
+    @objc func handleLongMessageToastClicked(_ sender: UIButton) {
+        view.makeToast(message: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum porttitor, nisl ut bibendum vestibulum, sem purus tempor arcu, quis aliquet diam eros non justo. Integer et est vel magna sagittis ultrices. Sed non convallis nisl, in fermentum odio. Sed quis leo congue, dapibus diam ut, dictum risus. Nullam feugiat erat eget magna bibendum, non luctus lacus mollis.", duration: 2, position: "bottom" as AnyObject)
     }
     
     @objc func handleTitleToastClicked(_ sender: UIButton) {
